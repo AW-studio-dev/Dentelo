@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentelo - Dental Clinic</title>
+    <style>
+        :root {
+            --light-steel-blue: #B0C4DE;
+            --royal-blue-light: #4169E1;
+            --oxford-blue: #0A2342;
+            --white: #FFFFFF;
+            --black: #000000;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--oxford-blue);
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--light-steel-blue), var(--royal-blue-light));
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 100;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--oxford-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--royal-blue-light);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--oxford-blue);
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--royal-blue-light);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--royal-blue-light);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .language-switcher {
+            margin-left: 2rem;
+        }
+        
+        .language-switcher button {
+            background: none;
+            border: none;
+            color: var(--oxford-blue);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .language-switcher button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(176, 196, 222, 0.3), rgba(65, 105, 225, 0.3));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--oxford-blue);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--oxford-blue);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--royal-blue-light);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--royal-blue-light);
+            animation: pulse 2s infinite;
+        }
+        
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--royal-blue-light);
+            animation: none;
+            transform: translateY(-3px);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background-color: var(--white);
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--oxford-blue);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(to right, var(--light-steel-blue), var(--royal-blue-light));
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+        
+        .about p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--oxford-blue);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Appointment Section */
+        .appointment-section {
+            padding: 5rem 2rem;
+            background-color: var(--light-steel-blue);
+        }
+        
+        .appointment-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .appointment-image {
+            flex: 1;
+            background: url('https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+        }
+        
+        .appointment-form {
+            flex: 1;
+            padding: 2rem;
+        }
+        
+        .form-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--oxford-blue);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--oxford-blue);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--royal-blue-light);
+            outline: none;
+        }
+        
+        .submit-btn {
+            background-color: var(--royal-blue-light);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--oxford-blue);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--oxford-blue);
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--light-steel-blue), var(--royal-blue-light));
+            bottom: -8px;
+            left: 25%;
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: var(--light-steel-blue);
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--white);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: var(--white);
+            background-color: var(--royal-blue-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--light-steel-blue);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--light-steel-blue);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(65, 105, 225, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(65, 105, 225, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(65, 105, 225, 0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin-left: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .language-switcher {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .appointment-container {
+                flex-direction: column;
+            }
+            
+            .appointment-image {
+                height: 200px;
+            }
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--royal-blue-light);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="index.html" class="logo">Dent<span>elo</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#appointment">Book Appointment</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1 id="hero-title">Your Smile Deserves the Best Care</h1>
+            <p id="hero-text">At Dentelo, we provide exceptional dental care with state-of-the-art technology and a compassionate approach. Our team of experts is dedicated to making your visit comfortable and stress-free.</p>
+            <a href="#appointment" class="cta-button" id="hero-button">Book an Appointment</a>
+        </div>
+    </section>
+    
+    <section class="about" id="about">
+        <h2 class="section-title" id="about-title">About Dentelo</h2>
+        <p id="about-text1">Welcome to Dentelo, your premier dental care provider. With years of experience and a commitment to excellence, we offer a wide range of dental services to meet all your oral health needs.</p>
+        <p id="about-text2">Our clinic is equipped with the latest technology, and our team of skilled professionals is dedicated to providing personalized care in a comfortable and welcoming environment.</p>
+    </section>
+    
+    <section class="appointment-section" id="appointment">
+        <h2 class="section-title" id="appointment-title">Book Your Appointment</h2>
+        <div class="appointment-container">
+            <div class="appointment-image"></div>
+            <div class="appointment-form">
+                <h3 class="form-title" id="form-title">Schedule a Visit</h3>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="name" id="name-label">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" id="email-label">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" id="phone-label">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date" id="date-label">Preferred Date</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service" id="service-label">Service Needed</label>
+                        <select id="service" name="service" required>
+                            <option value="" id="select-default">Select a service</option>
+                            <option value="cleaning" id="service-cleaning">Teeth Cleaning</option>
+                            <option value="whitening" id="service-whitening">Teeth Whitening</option>
+                            <option value="filling" id="service-filling">Filling</option>
+                            <option value="root-canal" id="service-root">Root Canal</option>
+                            <option value="braces" id="service-braces">Braces/Invisalign</option>
+                            <option value="other" id="service-other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" id="message-label">Additional Notes</label>
+                        <textarea id="message" name="message" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submit-btn">Book Appointment</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 id="footer-about-title">About Dentelo</h3>
+                <p id="footer-about-text">Dentelo is a modern dental clinic committed to providing high-quality dental care with a personal touch. Our team of experienced professionals uses the latest technology to ensure the best outcomes for our patients.</p>
+            </div>
+            <div class="footer-section">
+                <h3 id="footer-contact-title">Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Dental Street, Health City</p>
+                <p><i class="fas fa-phone"></i> +213 554 78 90</p>
+                <p><i class="fas fa-envelope"></i> aw.studio.dz@gmail.com</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3 id="footer-hours-title">Opening Hours</h3>
+                <p>Saturday - Thursday: 9:00 AM - 9:00 PM</p>
+                
+            </div>
+        </div>
+        <div class="copyright">
+            <p id="copyright-text">&copy; 2025 Dentelo Dental Clinic. All rights reserved by Wa Creatives.</p>
+        </div>
+    </footer>
+    
+    <div class="notification" id="notification"></div>
+    
+    <script>
+        // Language switching functionality
+        const languageButtons = {
+            en: document.getElementById('lang-en'),
+            ar: document.getElementById('lang-ar')
+        };
+        
+        const englishContent = {
+            'hero-title': 'Your Smile Deserves the Best Care',
+            'hero-text': 'At Dentelo, we provide exceptional dental care with state-of-the-art technology and a compassionate approach. Our team of experts is dedicated to making your visit comfortable and stress-free.',
+            'hero-button': 'Book an Appointment',
+            'about-title': 'About Dentelo',
+            'about-text1': 'Welcome to Dentelo, your premier dental care provider. With years of experience and a commitment to excellence, we offer a wide range of dental services to meet all your oral health needs.',
+            'about-text2': 'Our clinic is equipped with the latest technology, and our team of skilled professionals is dedicated to providing personalized care in a comfortable and welcoming environment.',
+            'appointment-title': 'Book Your Appointment',
+            'form-title': 'Schedule a Visit',
+            'name-label': 'Full Name',
+            'email-label': 'Email',
+            'phone-label': 'Phone Number',
+            'date-label': 'Preferred Date',
+            'service-label': 'Service Needed',
+            'select-default': 'Select a service',
+            'service-cleaning': 'Teeth Cleaning',
+            'service-whitening': 'Teeth Whitening',
+            'service-filling': 'Filling',
+            'service-root': 'Root Canal',
+            'service-braces': 'Braces/Invisalign',
+            'service-other': 'Other',
+            'message-label': 'Additional Notes',
+            'submit-btn': 'Book Appointment',
+            'footer-about-title': 'About Dentelo',
+            'footer-about-text': 'Dentelo is a modern dental clinic committed to providing high-quality dental care with a personal touch. Our team of experienced professionals uses the latest technology to ensure the best outcomes for our patients.',
+            'footer-contact-title': 'Contact Us',
+            'footer-hours-title': 'Opening Hours',
+            'copyright-text': '© 2023 Dentelo Dental Clinic. All rights reserved.'
+        };
+        
+        const arabicContent = {
+            'hero-title': 'ابتسامتك تستحق أفضل رعاية',
+            'hero-text': 'في Dentelo، نقدم رعاية أسنان استثنائية باستخدام أحدث التقنيات ونهج متعاطف. فريقنا من الخبراء مكرس لجعل زيارتك مريحة وخالية من الإجهاد.',
+            'hero-button': 'حجز موعد',
+            'about-title': 'حول Dentelo',
+            'about-text1': 'مرحبًا بكم في Dentelo، مزود رعاية الأسنان الرائد. مع سنوات من الخبرة والالتزام بالتميز، نقدم مجموعة واسعة من خدمات الأسنان لتلبية جميع احتياجات صحة الفم لديك.',
+            'about-text2': 'عيادتنا مجهزة بأحدث التقنيات، وفريقنا من المحترفين المهرة مكرس لتقديم رعاية مخصصة في بيئة مريحة ومرحبة.',
+            'appointment-title': 'احجز موعدك',
+            'form-title': 'جدولة زيارة',
+            'name-label': 'الاسم الكامل',
+            'email-label': 'البريد الإلكتروني',
+            'phone-label': 'رقم الهاتف',
+            'date-label': 'التاريخ المفضل',
+            'service-label': 'الخدمة المطلوبة',
+            'select-default': 'اختر خدمة',
+            'service-cleaning': 'تنظيف الأسنان',
+            'service-whitening': 'تبييض الأسنان',
+            'service-filling': 'حشو',
+            'service-root': 'علاج الجذور',
+            'service-braces': 'تقويم الأسنان',
+            'service-other': 'أخرى',
+            'message-label': 'ملاحظات إضافية',
+            'submit-btn': 'حجز الموعد',
+            'footer-about-title': 'حول Dentelo',
+            'footer-about-text': 'Dentelo هي عيادة أسنان حديثة ملتزمة بتقديم رعاية أسنان عالية الجودة بلمسة شخصية. يستخدم فريقنا من المحترفين ذوي الخبرة أحدث التقنيات لضمان أفضل النتائج لمرضانا.',
+            'footer-contact-title': 'اتصل بنا',
+            'footer-hours-title': 'ساعات العمل',
+            'copyright-text': '© 2023 عيادة Dentelo لطب الأسنان. جميع الحقوق محفوظة.'
+        };
+        
+        // Set initial language
+        let currentLanguage = 'en';
+        
+        // Function to switch language
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            const content = lang === 'en' ? englishContent : arabicContent;
+            
+            // Update all text elements
+            for (const [id, text] of Object.entries(content)) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = text;
+                } else if (id.startsWith('service-') && document.getElementById('service')) {
+                    // Handle select options
+                    const option = document.querySelector(#service option[value="${id.split('-')[1]}"]);
+                    if (option) option.textContent = text;
+                }
+            }
+            
+            // Update button styles
+            if (lang === 'en') {
+                languageButtons.en.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                languageButtons.ar.style.backgroundColor = 'transparent';
+            } else {
+                languageButtons.ar.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                languageButtons.en.style.backgroundColor = 'transparent';
+            }
+            
+            // Change direction for Arabic
+            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        }
+        
+        // Add event listeners for language buttons
+        languageButtons.en.addEventListener('click', () => switchLanguage('en'));
+        languageButtons.ar.addEventListener('click', () => switchLanguage('ar'));
+        
+        // Initialize with English
+        switchLanguage('en');
+        
+        // Form submission
+        const bookingForm = document.getElementById('booking-form');
+        const notification = document.getElementById('notification');
+        
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const service = document.getElementById('service').value;
+            
+            // Show notification
+            notification.textContent = currentLanguage === 'en' 
+                ? Thank you, ${name}! Your ${service} appointment has been booked. We'll contact you shortly.
+                : شكرًا لك ${name}! تم حجز موعد ${service} الخاص بك. سنتواصل معك قريبًا.;
+            
+            notification.classList.add('show');
+            
+            // Reset form
+            bookingForm.reset();
+            
+            // Hide notification after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.section-title, .appointment-container');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Set initial state for animated elements
+        document.querySelectorAll('.section-title, .appointment-container').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        });
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Trigger once on load
+        animateOnScroll();
+    </script>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
